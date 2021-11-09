@@ -1,3 +1,5 @@
+[![build main branch](https://github.com/MikAoJk/norwegian-social-security-number-validator/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/MikAoJk/norwegian-social-security-number-validator/actions/workflows/build.yml)
+
 # norwegian-social-security-number-validator
 a simple validator for validation a norwegian social security numbers (FNR, DNR)
 
