@@ -9,8 +9,5 @@ a simple validator for validation a norwegian social security numbers (FNR, DNR)
 * JDK 11
 
 #### Build and run tests
-To build locally and run the integration tests you can simply run `./gradlew shadowJar` or on windows
-`gradlew.bat shadowJar`
-
-#### Running localy
-on http://localhost:8080/login
+To build locally and run the integration tests you can simply run `./gradlew clean build` or on windows
+`gradlew.bat clean build`
