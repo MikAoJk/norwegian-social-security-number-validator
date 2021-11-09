@@ -1,15 +1,16 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Idea project files
 *.iml
+.idea/
+*.iws
 *.ipr
 
+# Gradle files
+.gradle/
+out/
+build/
 
-### VS Code ###
-.vscode/
+# Generated sources
+src/generated
+
+# OS specific
+.DS_Store
