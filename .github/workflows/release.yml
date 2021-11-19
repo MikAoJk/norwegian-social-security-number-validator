@@ -1,0 +1,32 @@
+name: Publish artifacts
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Gradle wrapper validation
+        uses: gradle/wrapper-validation-action@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-cache-${{ hashFiles('build.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-cache-
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-wrapper-
+      - name: test and build
+        run: ./gradlew -Pversion="1.$(echo $GITHUB_SHA | cut -c1-7)" build
+      - name: upload artifact
+        run: ./gradlew -Pversion="1.$(echo $GITHUB_SHA | cut -c1-7)" publish
+        env:
+          GITHUB_USERNAME: x-access-token
+          GITHUB_PASSWORD: ${{ secrets.TOKEN_GITHUB }}
