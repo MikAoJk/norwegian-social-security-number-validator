@@ -1,4 +1,4 @@
-name: Publish artifacts
+name: Build and publish artifact
 on:
   push:
     branches:
@@ -9,9 +9,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-      - name: Gradle wrapper validation
-        uses: gradle/wrapper-validation-action@v1
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-cache-${{ hashFiles('build.gradle.kts') }}
