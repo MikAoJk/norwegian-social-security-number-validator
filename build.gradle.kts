@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 group = "no.taule.kartveit"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
 
 val junitJupiterVersion = "5.8.1"
 val kotlinVersion = "1.6.0"
