@@ -1,17 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins {
-    kotlin("jvm") version "1.5.31"
-    `maven-publish`
-}
 
 group = "no.taule.kartveit"
 version = "1.0.0-SNAPSHOT"
 
 val junitJupiterVersion = "5.8.1"
-val kotlinVersion = "1.5.31"
+val kotlinVersion = "1.6.0"
 val logbackVersion = "1.2.7"
 val logstashEncoderVersion = "7.0"
+
+plugins {
+    kotlin("jvm") version "1.6.0"
+    `maven-publish`
+}
 
 repositories {
     mavenCentral()
