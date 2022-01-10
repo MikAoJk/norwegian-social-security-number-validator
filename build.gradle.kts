@@ -8,20 +8,37 @@ val junitJupiterVersion = "5.8.2"
 val kotlinVersion = "1.6.0"
 val logbackVersion = "1.2.10"
 val logstashEncoderVersion = "7.0.1"
+val javaVersion = "11"
 
 plugins {
     kotlin("jvm") version "1.6.0"
     `maven-publish`
+    java
+    signing
 }
 
 repositories {
     mavenCentral()
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     repositories {
         maven {
-            url = uri("https://maven.pkg.github.com/MikAoJk/norwegian-social-security-number-validator")
+            name = "OSSRH"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/MikAoJk/norwegian-organization-number-validator")
             credentials {
                 username = System.getenv("GITHUB_USERNAME")
                 password = System.getenv("GITHUB_PASSWORD")
@@ -39,6 +56,14 @@ publishing {
                     license {
                         name.set("MIT License")
                         url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+                
+                developers {
+                    developer {
+                        id.set("MikAoJk")
+                        name.set("Joakim Taule Kartveit")
+                        email.set("joakimkartveit@gmail.com")
                     }
                 }
 
@@ -63,10 +88,21 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }
 
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications["mavenJava"])
+}
+
 
 tasks {
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = javaVersion
+    }
+
+    withType<Javadoc> {
+        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
     }
 
     withType<Test> {
