@@ -1,4 +1,4 @@
-package no.taule.kartveit.validator
+package io.github.mikaojk.validator
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
