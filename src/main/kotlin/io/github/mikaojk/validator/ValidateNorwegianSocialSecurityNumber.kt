@@ -1,4 +1,4 @@
-package no.taule.kartveit.validator
+package io.github.mikaojk.validator
 
 import java.time.LocalDate
 
