@@ -38,7 +38,7 @@ publishing {
         }
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/MikAoJk/norwegian-organization-number-validator")
+            url = uri("https://maven.pkg.github.com/MikAoJk/norwegian-social-security-number-validator")
             credentials {
                 username = System.getenv("GITHUB_USERNAME")
                 password = System.getenv("GITHUB_PASSWORD")
