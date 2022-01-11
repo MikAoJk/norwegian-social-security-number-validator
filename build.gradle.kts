@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 group = "io.github.MikAoJk"
-version = "1.0.0"
+version = "1.0.1"
 
 val junitJupiterVersion = "5.8.2"
 val kotlinVersion = "1.6.0"
@@ -50,7 +50,7 @@ publishing {
 
             pom {
                 name.set("norwegian-social-security-number-validator")
-                description.set("Library for validation a norwegian social security number")
+                description.set("Library for validating a norwegian social security number (FNR or DNR)")
                 url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
                 licenses {
                     license {
