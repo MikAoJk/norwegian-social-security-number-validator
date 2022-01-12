@@ -25,4 +25,4 @@ To build locally and run the integration tests you can simply run `./gradlew cle
 To publish you can simply run `./gradlew clean build` and then run `./gradlew publish`
 
 #### Publish of artifact
-Artifact publish is done by Github Actions, and publish to Maven Central and Github Packages
+Artifact publish is done by GitHub Actions, and publish to Maven Central and GitHub Packages
