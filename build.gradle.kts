@@ -1,8 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-
 group = "io.github.MikAoJk"
-version = "1.0.2"
+version = "1.0.3"
 
 val junitJupiterVersion = "5.8.2"
 val kotlinVersion = "1.6.0"
@@ -56,7 +55,7 @@ publishing {
                         url.set("https://opensource.org/licenses/MIT")
                     }
                 }
-                
+
                 developers {
                     developer {
                         id.set("MikAoJk")

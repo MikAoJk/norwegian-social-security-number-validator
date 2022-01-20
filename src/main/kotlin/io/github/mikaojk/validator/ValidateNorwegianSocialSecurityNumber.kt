@@ -31,11 +31,15 @@ fun validateSocialSecurityNumberMod11(socialSecurityNumber: String): Boolean {
 
 private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String): Boolean {
     val socialSecurityNumberBornDay = socialSecurityNumber.substring(0, 2)
-    return validateSocialSecurityNumberRange(socialSecurityNumberBornDay) || validateSocialSecurityDNumberRange(socialSecurityNumberBornDay)
+    return validateSocialSecurityNumberRange(socialSecurityNumberBornDay) || validateSocialSecurityDNumberRange(
+        socialSecurityNumberBornDay
+    )
 }
 
-fun validateSocialSecurityAndDNumber(personNumber: String): Boolean =
-    validateSocialSecurityNumberMod11(personNumber) && validatePersonAndPersonDNumberRange(personNumber)
+fun validateSocialSecurityAndDNumber(personNumber: String?): Boolean =
+    personNumber != null
+            && validateSocialSecurityNumberMod11(personNumber)
+            && validatePersonAndPersonDNumberRange(personNumber)
 
 fun validateSocialSecurityAndDNumber11Digits(personNumber: String): Boolean =
     personNumber.length == 11
@@ -47,6 +51,7 @@ fun validateSocialSecurityNumberRange(personNumberFirstAndSecoundChar: String): 
 fun validateSocialSecurityDNumberRange(socialSecurityNumberFirstAndSecoundChar: String): Boolean {
     return socialSecurityNumberFirstAndSecoundChar.toInt() in 41..71
 }
+
 fun extractBornDate(personIdent: String): LocalDate =
     LocalDate.of(extractBornYear(personIdent), extractBornMonth(personIdent), extractBornDay(personIdent))
 
