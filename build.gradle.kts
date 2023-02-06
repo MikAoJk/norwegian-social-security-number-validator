@@ -97,6 +97,9 @@ tasks {
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = javaVersion
     }
+    named<KotlinCompile>("compileTestKotlin") {
+        kotlinOptions.jvmTarget = javaVersion
+    }
 
     withType<Javadoc> {
         (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
