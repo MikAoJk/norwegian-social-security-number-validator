@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "io.github.MikAoJk"
-version = "1.0.3"
+version = "1.0.4"
 
-val junitJupiterVersion = "5.8.2"
-val kotlinVersion = "1.6.0"
-val javaVersion = "11"
+val junitJupiterVersion = "5.9.2"
+val kotlinVersion = "1.8.10"
+val javaVersion = "17"
 
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.8.10"
     `maven-publish`
     java
     signing
@@ -102,7 +102,9 @@ tasks {
     withType<Test> {
         useJUnitPlatform()
         testLogging {
-            showStandardStreams = true
+            events("skipped", "failed")
+            showStackTraces = true
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
         }
     }
 }
