@@ -19,6 +19,9 @@ repositories {
 }
 
 java {
+    sourceCompatibility = JavaVersion.toVersion(javaVersion)
+    targetCompatibility = JavaVersion.toVersion(javaVersion)
+
     withJavadocJar()
     withSourcesJar()
 }
