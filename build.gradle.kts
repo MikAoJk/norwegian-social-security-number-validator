@@ -83,6 +83,7 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }
 
 signing {
@@ -98,6 +99,10 @@ tasks {
         kotlinOptions.jvmTarget = javaVersion
     }
 
+    named<KotlinCompile>("compileTestKotlin") {
+        kotlinOptions.jvmTarget = javaVersion
+    }
+
     withType<Javadoc> {
         (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
     }
@@ -105,7 +110,7 @@ tasks {
     withType<Test> {
         useJUnitPlatform()
         testLogging {
-            showStackTraces = true
+            events("passed", "skipped", "failed")
         }
     }
 }
