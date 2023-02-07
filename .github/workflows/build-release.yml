@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: build artifact
-        run: ./gradlew -Pversion="1.$(echo $GITHUB_SHA | cut -c1-7)" build
+        run: ./gradlew -Pversion="1.$(echo $GITHUB_SHA | cut -c1-7)" build --stacktrace -debug
       - name: upload artifact
         run: ./gradlew -Pversion="1.$(echo $GITHUB_SHA | cut -c1-7)" publish
         env:
