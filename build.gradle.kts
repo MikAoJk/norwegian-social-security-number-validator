@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "io.github.MikAoJk"
-version = "1.0.5"
+version = "1.0.6"
 
 val junitJupiterVersion = "5.9.2"
 val kotlinVersion = "1.8.10"
@@ -96,10 +96,6 @@ signing {
 
 tasks {
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = javaVersion
-    }
-
-    named<KotlinCompile>("compileTestKotlin") {
         kotlinOptions.jvmTarget = javaVersion
     }
 
