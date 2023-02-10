@@ -17,7 +17,17 @@ for more info on how validation of a norwegian social security number is done
 * Gradle
 * JDK 17
 
-## Getting started
+## Using the library 
+### import
+Gradle(kotlin)
+'implementation("io.github.MikAoJk:norwegian-social-security-number-validator:1.0.5")'
+
+
+### Use example
+'val valid = validateSocialSecurityAndDNumber11Digits("01013999900")
+'
+
+## Local development started
 
 ### Prerequisites
 Make sure you have the Java JDK 17 installed
