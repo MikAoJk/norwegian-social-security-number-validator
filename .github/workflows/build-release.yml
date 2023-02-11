@@ -1,6 +1,8 @@
 name: Build and publish artifact
 on:
   push:
+    paths-ignore:
+      - 'README.md'
     branches:
       - main
 jobs:
