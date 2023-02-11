@@ -20,12 +20,14 @@ for more info on how validation of a norwegian social security number is done
 ## Using the library 
 ### import
 Gradle(kotlin)
-'implementation("io.github.MikAoJk:norwegian-social-security-number-validator:1.0.5")'
-
+```
+implementation("io.github.MikAoJk:norwegian-social-security-number-validator:1.0.5")
+```
 
 ### Use example
-'val valid = validateSocialSecurityAndDNumber11Digits("01013999900")
-'
+```
+val valid = validateSocialSecurityAndDNumber11Digits("01013999900")
+```
 
 ## Local development started
 
