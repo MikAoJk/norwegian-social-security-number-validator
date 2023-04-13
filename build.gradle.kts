@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "io.github.MikAoJk"
-version = "1.0.10"
+version = "1.0.0" //This will never change. See GitHub releases for releases of artifact
 
 val junitJupiterVersion = "5.9.2"
 val kotlinVersion = "1.8.10"
@@ -9,6 +9,7 @@ val javaVersion = "17"
 
 plugins {
     kotlin("jvm") version "1.8.10"
+    id("com.github.ben-manes.versions") version "0.46.0"
     `maven-publish`
     java
     signing
@@ -72,6 +73,7 @@ publishing {
                     developerConnection.set("scm:git:https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
                     url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
                 }
+                version = System.getenv("NEW_VERSION")
             }
             from(components["java"])
         }

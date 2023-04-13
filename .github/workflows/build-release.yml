@@ -1,10 +1,10 @@
 name: Build and publish artifact
 on:
-  push:
-    paths-ignore:
-      - 'README.md'
-    branches:
-      - main
+  release:
+    types: [published]
+env:
+  NEW_VERSION: ${{ github.event.release.tag_name }}
+
 jobs:
   build_and_release:
     runs-on: ubuntu-latest
@@ -29,9 +29,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-wrapper-
       - name: build artifact
-        run: ./gradlew -Pversion="1.$(echo $GITHUB_SHA | cut -c1-7)" build
+        run: ./gradlew -Pversion=${{ env.NEW_VERSION }} build
       - name: upload artifact
-        run: ./gradlew -Pversion="1.$(echo $GITHUB_SHA | cut -c1-7)" publish
+        run: ./gradlew -Pversion=${{ env.NEW_VERSION }} publish
         env:
           GITHUB_USERNAME: x-access-token
           GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
