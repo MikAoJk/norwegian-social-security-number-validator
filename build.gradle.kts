@@ -4,7 +4,7 @@ group = "io.github.MikAoJk"
 version = "1.0.0" //This will never change. See GitHub releases for releases of artifact
 
 val junitJupiterVersion = "5.9.3"
-val kotlinVersion = "1.8.21"
+val kotlinVersion = "1.8.22"
 val javaVersion = "17"
 
 plugins {
