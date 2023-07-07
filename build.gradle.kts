@@ -8,7 +8,7 @@ val kotlinVersion = "1.8.22"
 val javaVersion = "17"
 
 plugins {
-    kotlin("jvm") version "1.8.22"
+    kotlin("jvm") version "1.9.0"
     id("com.github.ben-manes.versions") version "0.47.0"
     `maven-publish`
     java
