@@ -75,3 +75,8 @@ This project is maintained by [CODEOWNERS](CODEOWNERS)
 
 Questions and/or feature requests?
 Please create an [issue](https://github.com/MikAoJk/norwegian-social-security-number-validator/issues)
+
+## ✏️ Contributing
+
+To get started, please fork the repo and checkout a new branch.
+See more info in [CONTRIBUTING.md](CONTRIBUTING.md)
