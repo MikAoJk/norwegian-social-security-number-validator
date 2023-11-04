@@ -15,7 +15,7 @@ for more info on how validation of a norwegian social security number is done
 ## Technologies used
 * Kotlin
 * Gradle
-* JDK 17
+* JDK 21
 
 ## Using the library 
 ### import
