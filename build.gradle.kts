@@ -95,10 +95,10 @@ signing {
 tasks {
 
     compileKotlin {
-        kotlinOptions.jvmTarget = java_version.toString()
+        kotlinOptions.jvmTarget = javaVersion.toString()
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = java_version.toString()
+        kotlinOptions.jvmTarget = javaVersion.toString()
     }
 
     javadoc  {
