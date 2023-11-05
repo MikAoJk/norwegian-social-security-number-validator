@@ -110,6 +110,7 @@ tasks {
         testLogging {
             events("skipped", "failed")
             showStackTraces = true
+            showExceptions = true
             exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
         }
     }
