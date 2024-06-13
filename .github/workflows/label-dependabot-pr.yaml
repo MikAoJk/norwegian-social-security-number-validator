@@ -1,0 +1,34 @@
+name: Label dependabot pr
+on:
+  pull_request
+
+jobs:
+  label-pr:
+    permissions:
+      actions: write
+      checks: read
+      contents: write
+      pull-requests: write
+      statuses: read
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' && !github.event.pull_request.head.repo.fork }}
+    steps:
+      - name: Fetch Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v2
+      - name: Label patch
+        if: ${{ steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' }}
+        run: |
+          gh pr review $PR_URL --approve -b "I'm **approving** this pull request because **it includes a patch update**"
+          gh pr edit "$PR_URL" --add-label automerge --repo $GITHUB_REPOSITORY
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Label minor
+        if: ${{ steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor' }}
+        run: |
+          gh pr review $PR_URL --approve -b "I'm **approving** this pull request because **it includes a minor update**"
+          gh pr edit "$PR_URL" --add-label automerge --repo $GITHUB_REPOSITORY
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
