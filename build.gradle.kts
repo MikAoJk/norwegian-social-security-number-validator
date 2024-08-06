@@ -2,11 +2,11 @@ group = "io.github.MikAoJk"
 version = "1.0.0" //This will never change. See GitHub releases for releases of artifact
 
 val junitJupiterVersion = "5.10.3"
-val kotlinVersion = "2.0.0"
+val kotlinVersion = "2.0.10"
 val javaVersion = JavaVersion.VERSION_21
 
 plugins {
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm") version "2.0.10"
     id("com.github.ben-manes.versions") version "0.51.0"
     `maven-publish`
     java
