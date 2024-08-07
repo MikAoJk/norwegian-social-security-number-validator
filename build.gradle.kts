@@ -1,5 +1,5 @@
-group = "io.github.MikAoJk"
-version = "1.0.0" //This will never change. See GitHub releases for releases of artifact
+group = "io.github.mikaojk"
+version = "1.0.0"
 
 val junitJupiterVersion = "5.10.3"
 val kotlinVersion = "2.0.10"
