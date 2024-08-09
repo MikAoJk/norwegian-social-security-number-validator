@@ -18,7 +18,7 @@ for more info on how validation of a norwegian social security number is done
 
 ## Using the library 
 ### Getting github-package-registry packages
-Some packages used in this repo is uploaded to the GitHub Package Registry which requires authentication. It can, for example, be solved like this in Gradle:
+The package  in this repo is uploaded to the GitHub Package Registry which requires authentication. It can, for example, be solved like this in Gradle:
 ```
 val githubUser: String by project
 val githubPassword: String by project
@@ -57,7 +57,7 @@ or the command line:
 ### import
 Gradle(kotlin)
 ```
-implementation("io.github.mikaojk:norwegian-social-security-number-validator:2.0.1")
+implementation("io.github.mikaojk:norwegian-social-security-number-validator:2.0.7")
 ```
 
 ### Use example
