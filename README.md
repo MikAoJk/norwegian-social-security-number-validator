@@ -4,7 +4,7 @@
 
 [![Build and publish artifact](https://github.com/MikAoJk/norwegian-social-security-number-validator/actions/workflows/build-release.yml/badge.svg?branch=main)](https://github.com/MikAoJk/norwegian-social-security-number-validator/actions/workflows/build-release.yml)
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.MikAoJk/norwegian-social-security-number-validator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.MikAoJk/norwegian-social-security-number-validator/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.mikaojk/norwegian-social-security-number-validator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.mikaojk/norwegian-social-security-number-validator/)
 
 # norwegian-social-security-number-validator
 a simple validator for validation a norwegian social security numbers (FNR, DNR)
@@ -21,7 +21,7 @@ for more info on how validation of a norwegian social security number is done
 ### import
 Gradle(kotlin)
 ```
-implementation("io.github.MikAoJk:norwegian-social-security-number-validator:2.0.1")
+implementation("io.github.mikaojk:norwegian-social-security-number-validator:2.0.1")
 ```
 
 ### Use example

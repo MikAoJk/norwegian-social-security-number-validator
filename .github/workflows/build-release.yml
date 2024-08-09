@@ -35,6 +35,9 @@ jobs:
         env:
           GITHUB_USERNAME: x-access-token
           GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      - name: upload artifact to central portal
+        run: ./gradlew -Pversion=${{ env.NEW_VERSION }} publishAndReleaseToMavenCentral --no-configuration-cache
+        env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.OSSRH_GPG_SECRET_KEY }}

@@ -1,13 +1,19 @@
+import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 group = "io.github.mikaojk"
 version = "1.0.0"
 
 val junitJupiterVersion = "5.10.3"
 val kotlinVersion = "2.0.10"
+val ktfmtVersion = "0.44"
 val javaVersion = JavaVersion.VERSION_21
 
 plugins {
     kotlin("jvm") version "2.0.10"
     id("com.github.ben-manes.versions") version "0.51.0"
+    id("com.vanniktech.maven.publish") version "0.29.0"
+    id("com.diffplug.spotless") version "6.25.0"
     `maven-publish`
     java
     signing
@@ -15,6 +21,12 @@ plugins {
 
 repositories {
     mavenCentral()
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
+    }
 }
 
 java {
@@ -25,19 +37,19 @@ java {
     withSourcesJar()
 }
 
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
+}
+
+
 publishing {
     repositories {
         maven {
-            name = "OSSRH"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
-            }
-        }
-        maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/MikAoJk/norwegian-social-security-number-validator")
+            url =
+                uri("https://maven.pkg.github.com/MikAoJk/norwegian-social-security-number-validator")
             credentials {
                 username = System.getenv("GITHUB_USERNAME")
                 password = System.getenv("GITHUB_PASSWORD")
@@ -78,11 +90,43 @@ publishing {
     }
 }
 
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+// TODO replace in feature when gradle is official supported by Maven central portal
+mavenPublishing {
+    coordinates(rootProject.group.toString(), rootProject.name, rootProject.version.toString())
 
-    testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
+    pom {
+        name.set("norwegian-social-security-number-validator")
+        description.set("Library for validating a norwegian social security number (FNR or DNR)")
+        url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("MikAoJk")
+                name.set("Joakim Taule Kartveit")
+                email.set("joakimkartveit@gmail.com")
+                url.set("https://github.com/MikAoJk/")
+            }
+        }
+
+        scm {
+            connection.set("scm:git:https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
+            developerConnection.set("scm:git:https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
+            url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
+        }
+        version = System.getenv("NEW_VERSION")
+    }
+
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    signAllPublications()
 }
+
 
 signing {
     val signingKey: String? by project
@@ -94,14 +138,14 @@ signing {
 
 tasks {
 
-    compileKotlin {
-        kotlinOptions.jvmTarget = javaVersion.toString()
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = javaVersion.toString()
+    spotless {
+        kotlin { ktfmt(ktfmtVersion).kotlinlangStyle() }
+        check {
+            dependsOn("spotlessApply")
+        }
     }
 
-    javadoc  {
+    javadoc {
         (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
     }
 
