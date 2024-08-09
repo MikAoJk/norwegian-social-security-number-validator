@@ -6,8 +6,7 @@ val lookup1: IntArray = intArrayOf(3, 7, 6, 1, 8, 9, 4, 5, 2, 0)
 val lookup2: IntArray = intArrayOf(5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 
 fun validateSocialSecurityNumberMod11(socialSecurityNumber: String): Boolean {
-    if (socialSecurityNumber.length != 11)
-        return false
+    if (socialSecurityNumber.length != 11) return false
 
     var checksum1 = 0
     var checksum2 = 0
@@ -25,21 +24,20 @@ fun validateSocialSecurityNumberMod11(socialSecurityNumber: String): Boolean {
     val checksum2Final = if (checksum2 == 0) 0 else 11 - checksum2
 
     return checksum1Final != 10 &&
-            socialSecurityNumber[9] - '0' == checksum1Final &&
-            socialSecurityNumber[10] - '0' == checksum2Final
+        socialSecurityNumber[9] - '0' == checksum1Final &&
+        socialSecurityNumber[10] - '0' == checksum2Final
 }
 
 private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String): Boolean {
     val socialSecurityNumberBornDay = socialSecurityNumber.substring(0, 2)
-    return validateSocialSecurityNumberRange(socialSecurityNumberBornDay) || validateSocialSecurityDNumberRange(
-        socialSecurityNumberBornDay
-    )
+    return validateSocialSecurityNumberRange(socialSecurityNumberBornDay) ||
+        validateSocialSecurityDNumberRange(socialSecurityNumberBornDay)
 }
 
 fun validateSocialSecurityAndDNumber(personNumber: String?): Boolean =
-    personNumber != null
-            && validateSocialSecurityNumberMod11(personNumber)
-            && validatePersonAndPersonDNumberRange(personNumber)
+    personNumber != null &&
+        validateSocialSecurityNumberMod11(personNumber) &&
+        validatePersonAndPersonDNumberRange(personNumber)
 
 fun validateSocialSecurityAndDNumber11Digits(personNumber: String): Boolean =
     personNumber.length == 11
@@ -53,7 +51,11 @@ fun validateSocialSecurityDNumberRange(socialSecurityNumberFirstAndSecoundChar: 
 }
 
 fun extractBornDate(personIdent: String): LocalDate =
-    LocalDate.of(extractBornYear(personIdent), extractBornMonth(personIdent), extractBornDay(personIdent))
+    LocalDate.of(
+        extractBornYear(personIdent),
+        extractBornMonth(personIdent),
+        extractBornDay(personIdent)
+    )
 
 fun extractBornYear(socialSecurityNumber: String): Int {
     val lastTwoDigitsOfYear = extractLastTwoDigistOfyear(socialSecurityNumber)
@@ -77,8 +79,11 @@ fun extractBornDay(socialSecurityNumber: String): Int {
     return if (day < 40) day else day - 40
 }
 
-fun extractBornMonth(socialSecurityNumber: String): Int = socialSecurityNumber.substring(2..3).toInt()
+fun extractBornMonth(socialSecurityNumber: String): Int =
+    socialSecurityNumber.substring(2..3).toInt()
 
-fun extractIndividualDigits(socialSecurityNumber: String): Int = socialSecurityNumber.substring(6, 9).toInt()
+fun extractIndividualDigits(socialSecurityNumber: String): Int =
+    socialSecurityNumber.substring(6, 9).toInt()
 
-fun extractLastTwoDigistOfyear(socialSecurityNumber: String): Int = socialSecurityNumber.substring(4, 6).toInt()
+fun extractLastTwoDigistOfyear(socialSecurityNumber: String): Int =
+    socialSecurityNumber.substring(4, 6).toInt()

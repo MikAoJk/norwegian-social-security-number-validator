@@ -1,9 +1,9 @@
 package io.github.mikaojk.validator
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class ValidateNorwegianSocialSecurityNumberTest {
 
@@ -59,17 +59,17 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
         assertEquals(2039, extractBornYear4)
     }
 
-
     @Test
     internal fun shouldExtractBornYearFrom1991() {
-        val extractBornYear = extractBornYear(generateSocialSecurityNumber(LocalDate.of(1991,4,7)))
+        val extractBornYear =
+            extractBornYear(generateSocialSecurityNumber(LocalDate.of(1991, 4, 7)))
 
         assertEquals(1991, extractBornYear)
     }
 
     @Test
     internal fun shouldExtractBornDateFrom1991() {
-        val bornDate19910407 = LocalDate.of(1991,4,7)
+        val bornDate19910407 = LocalDate.of(1991, 4, 7)
         val extractBornDate = extractBornDate(generateSocialSecurityNumber(bornDate19910407))
 
         assertEquals(bornDate19910407, extractBornDate)
@@ -88,17 +88,15 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
 
         assertEquals(false, validationResult)
     }
-
 }
 
 private fun generateSocialSecurityNumber(bornDate: LocalDate, useDNumber: Boolean = false): String {
     val socialSecurityNumberDateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("ddMMyy")
-    val personDate = bornDate.format(socialSecurityNumberDateFormat).let {
-        if (useDNumber) "${it[0] + 4}${it.substring(1)}" else it
-    }
+    val personDate =
+        bornDate.format(socialSecurityNumberDateFormat).let {
+            if (useDNumber) "${it[0] + 4}${it.substring(1)}" else it
+        }
     return (if (bornDate.year >= 2000) (75011..99999) else (11111..50099))
         .map { "$personDate$it" }
-        .first {
-            validateSocialSecurityAndDNumber(it)
-        }
+        .first { validateSocialSecurityAndDNumber(it) }
 }

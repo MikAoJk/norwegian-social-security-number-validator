@@ -11,10 +11,8 @@ val javaVersion = JavaVersion.VERSION_21
 plugins {
     kotlin("jvm") version "2.0.10"
     id("com.github.ben-manes.versions") version "0.51.0"
-    id("com.tddworks.central-portal-publisher") version "0.0.5"
     id("com.diffplug.spotless") version "6.25.0"
     `maven-publish`
-    java
     signing
 }
 
@@ -28,12 +26,6 @@ kotlin {
     }
 }
 
-java {
-    sourceCompatibility = JavaVersion.toVersion(javaVersion)
-    targetCompatibility = JavaVersion.toVersion(javaVersion)
-
-    withSourcesJar()
-}
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
@@ -87,19 +79,7 @@ publishing {
     }
 }
 
-// TODO replace in feature when gradle is official supported by Maven central portal
-sonatypePortalPublisher {
 
-    authentication {
-        username = System.getenv("SONATYPE_USERNAME")
-        password = System.getenv("SONATYPE_PASSWORD")
-    }
-
-    settings {
-        autoPublish = false
-    }
-
-}
 
 signing {
     val signingKey: String? by project
