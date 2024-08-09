@@ -28,9 +28,9 @@ jobs:
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-wrapper-
-      - name: build artifact github repository packages
+      - name: build artifact
         run: ./gradlew -Pversion=${{ env.NEW_VERSION }} build
-      - name: upload artifact to
+      - name: upload artifact to github repository packages
         run: ./gradlew -Pversion=${{ env.NEW_VERSION }} publish
         env:
           GITHUB_USERNAME: x-access-token
