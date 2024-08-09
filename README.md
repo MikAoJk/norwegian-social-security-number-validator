@@ -4,7 +4,6 @@
 
 [![Build and publish artifact](https://github.com/MikAoJk/norwegian-social-security-number-validator/actions/workflows/build-release.yml/badge.svg?branch=main)](https://github.com/MikAoJk/norwegian-social-security-number-validator/actions/workflows/build-release.yml)
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.mikaojk/norwegian-social-security-number-validator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.mikaojk/norwegian-social-security-number-validator/)
 
 # norwegian-social-security-number-validator
 a simple validator for validation a norwegian social security numbers (FNR, DNR)
