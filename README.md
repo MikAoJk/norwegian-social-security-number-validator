@@ -57,7 +57,16 @@ or the command line:
 ### import
 Gradle(kotlin)
 ```
-implementation("io.github.mikaojk:norwegian-social-security-number-validator:2.0.7")
+implementation("io.github.mikaojk:norwegian-social-security-number-validator:2.0.9")
+```
+
+Maven
+```
+<dependency>
+  <groupId>io.github.mikaojk</groupId>
+  <artifactId>norwegian-social-security-number-validator</artifactId>
+  <version>2.0.9</version>
+</dependency>
 ```
 
 ### Use example
