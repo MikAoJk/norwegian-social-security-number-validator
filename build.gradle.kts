@@ -1,4 +1,3 @@
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "io.github.mikaojk"
@@ -12,7 +11,7 @@ val javaVersion = JavaVersion.VERSION_21
 plugins {
     kotlin("jvm") version "2.0.10"
     id("com.github.ben-manes.versions") version "0.51.0"
-    id("com.vanniktech.maven.publish") version "0.29.0"
+    id("com.tddworks.central-portal-publisher") version "0.0.5"
     id("com.diffplug.spotless") version "6.25.0"
     `maven-publish`
     java
@@ -33,7 +32,6 @@ java {
     sourceCompatibility = JavaVersion.toVersion(javaVersion)
     targetCompatibility = JavaVersion.toVersion(javaVersion)
 
-    withJavadocJar()
     withSourcesJar()
 }
 
@@ -90,44 +88,18 @@ publishing {
 }
 
 // TODO replace in feature when gradle is official supported by Maven central portal
-mavenPublishing {
+sonatypePortalPublisher {
 
-    coordinates(rootProject.group.toString(), rootProject.name, System.getenv("NEW_VERSION"))
+    authentication {
+        username = System.getenv("SONATYPE_USERNAME")
+        password = System.getenv("SONATYPE_PASSWORD")
+    }
 
-    signAllPublications()
-
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-
-    pom {
-        name.set("norwegian-social-security-number-validator")
-        description.set("Library for validating a norwegian social security number (FNR or DNR)")
-        url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
-        licenses {
-            license {
-                name.set("MIT License")
-                url.set("https://opensource.org/licenses/MIT")
-            }
-        }
-
-        developers {
-            developer {
-                id.set("MikAoJk")
-                name.set("Joakim Taule Kartveit")
-                email.set("joakimkartveit@gmail.com")
-                url.set("https://github.com/MikAoJk/")
-            }
-        }
-
-        scm {
-            connection.set("scm:git:https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
-            developerConnection.set("scm:git:https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
-            url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
-        }
-        version = System.getenv("NEW_VERSION")
+    settings {
+        autoPublish = false
     }
 
 }
-
 
 signing {
     val signingKey: String? by project
@@ -145,9 +117,6 @@ tasks {
         }
     }
 
-    javadoc {
-        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
-    }
 
     test {
         useJUnitPlatform()
