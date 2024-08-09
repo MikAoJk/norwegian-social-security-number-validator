@@ -58,7 +58,6 @@ publishing {
     }
     publications {
         create<MavenPublication>("mavenJava") {
-
             pom {
                 name.set("norwegian-social-security-number-validator")
                 description.set("Library for validating a norwegian social security number (FNR or DNR)")
@@ -92,7 +91,12 @@ publishing {
 
 // TODO replace in feature when gradle is official supported by Maven central portal
 mavenPublishing {
+
     coordinates(rootProject.group.toString(), rootProject.name, System.getenv("NEW_VERSION"))
+
+    signAllPublications()
+
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
     pom {
         name.set("norwegian-social-security-number-validator")
@@ -122,9 +126,6 @@ mavenPublishing {
         version = System.getenv("NEW_VERSION")
     }
 
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-
-    signAllPublications()
 }
 
 
@@ -137,7 +138,6 @@ signing {
 
 
 tasks {
-
     spotless {
         kotlin { ktfmt(ktfmtVersion).kotlinlangStyle() }
         check {
