@@ -92,7 +92,7 @@ publishing {
 
 // TODO replace in feature when gradle is official supported by Maven central portal
 mavenPublishing {
-    coordinates(rootProject.group.toString(), rootProject.name, rootProject.version.toString())
+    coordinates(rootProject.group.toString(), rootProject.name, System.getenv("NEW_VERSION"))
 
     pom {
         name.set("norwegian-social-security-number-validator")
