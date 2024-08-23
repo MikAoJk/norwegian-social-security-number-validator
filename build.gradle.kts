@@ -4,7 +4,7 @@ group = "io.github.mikaojk"
 version = "1.0.0"
 
 val junitJupiterVersion = "5.11.0"
-val kotlinVersion = "2.0.10"
+val kotlinVersion = "2.0.20"
 val ktfmtVersion = "0.44"
 val javaVersion = JavaVersion.VERSION_21
 
