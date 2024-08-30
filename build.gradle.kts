@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jreleaser.model.Active
 
 group = "io.github.mikaojk"
 version = "1.0.0"
@@ -13,7 +14,17 @@ plugins {
     id("com.github.ben-manes.versions") version "0.51.0"
     id("com.diffplug.spotless") version "6.25.0"
     `maven-publish`
+    java
+    id("org.jreleaser") version "1.13.1"
     signing
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(javaVersion)
+    targetCompatibility = JavaVersion.toVersion(javaVersion)
+
+    withJavadocJar()
+    withSourcesJar()
 }
 
 repositories {
@@ -34,6 +45,27 @@ dependencies {
 }
 
 
+jreleaser {
+    signing {
+        active.set(Active.ALWAYS)
+        armored = true
+        verify = false
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                create("sonatype") {
+                    active.set(Active.ALWAYS)
+                    url.set("https://central.sonatype.com/api/v1/publisher")
+                    stagingRepository("build/staging-deploy")
+                    username = System.getenv("JRELEASER_MAVENCENTRAL_USERNAME")
+                    password = System.getenv("JRELEASER_MAVENCENTRAL_PASSWORD")
+                }
+            }
+        }
+    }
+}
+
 publishing {
     repositories {
         maven {
@@ -44,6 +76,10 @@ publishing {
                 username = System.getenv("GITHUB_USERNAME")
                 password = System.getenv("GITHUB_PASSWORD")
             }
+        }
+        maven {
+            name = "MavenStage"
+            url = uri(layout.buildDirectory.dir("staging-deploy"))
         }
     }
     publications {
