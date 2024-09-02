@@ -15,7 +15,7 @@ plugins {
     id("com.diffplug.spotless") version "6.25.0"
     `maven-publish`
     java
-    id("org.jreleaser") version "1.13.1"
+    id("org.jreleaser") version "1.14.0"
     signing
 }
 
