@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jreleaser.model.Active
 
 group = "io.github.mikaojk"
 version = System.getenv("NEW_VERSION") ?: "1.0.0"
@@ -16,7 +15,6 @@ plugins {
     `maven-publish`
     java
     signing
-    id("org.jreleaser") version "1.14.0"
 }
 
 java {
@@ -57,10 +55,6 @@ publishing {
                 password = System.getenv("GITHUB_PASSWORD")
             }
         }
-        maven {
-            name = "MavenStage"
-            url = uri(layout.buildDirectory.dir("staging-deploy"))
-        }
     }
     publications {
         create<MavenPublication>("mavenJava") {
@@ -95,40 +89,6 @@ publishing {
         }
     }
 }
-
-jreleaser {
-    project {
-        version = System.getenv("NEW_VERSION")
-    }
-
-
-    signing {
-        active.set(Active.ALWAYS)
-        armored = true
-        verify = true
-    }
-
-
-    deploy {
-        maven {
-            pomchecker {
-                version.set("1.12.0")
-            }
-            mavenCentral {
-                create("sonatype") {
-                    version = System.getenv("NEW_VERSION")
-                    active.set(Active.ALWAYS)
-                    url.set("https://central.sonatype.com/api/v1/publisher")
-                    stagingRepository("build/staging-deploy")
-                    username = System.getenv("JRELEASER_MAVENCENTRAL_USERNAME")
-                    password = System.getenv("JRELEASER_MAVENCENTRAL_PASSWORD")
-                }
-            }
-        }
-    }
-}
-
-
 
 signing {
     val signingKey: String? by project
