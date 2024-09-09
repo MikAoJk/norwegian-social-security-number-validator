@@ -101,11 +101,13 @@ jreleaser {
         version = System.getenv("NEW_VERSION")
     }
 
+    /*
     signing {
         active.set(Active.ALWAYS)
-        armored = true
         verify = true
     }
+
+     */
     deploy {
         maven {
             pomchecker {
