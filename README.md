@@ -105,10 +105,17 @@ To publish you can simply run
 ``` bash
 ./gradlew clean build
 ```
-and then run
+for release to GitHub packages run
+(Replace $NEW_VERSION with the version you want to release)
 ``` bash
-./gradlew publish
+./gradlew -Pversion=$NEW_VERSION publish
 ```
+for release to GitHub packages run
+(Replace $NEW_VERSION with the version you want to release)
+``` bash
+./gradlew -Pversion=$NEW_VERSION jreleaserFullRelease
+```
+
 
 #### Publish of artifact
 Artifact publish is done by GitHub Actions,
