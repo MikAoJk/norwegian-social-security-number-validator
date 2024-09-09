@@ -97,6 +97,9 @@ publishing {
 }
 
 jreleaser {
+    project {
+        version = System.getenv("NEW_VERSION")
+    }
 
     signing {
         active.set(Active.ALWAYS)
