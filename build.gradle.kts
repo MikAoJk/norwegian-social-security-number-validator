@@ -101,13 +101,14 @@ jreleaser {
         version = System.getenv("NEW_VERSION")
     }
 
-    /*
+
     signing {
         active.set(Active.ALWAYS)
+        armored = true
         verify = true
     }
 
-     */
+
     deploy {
         maven {
             pomchecker {
@@ -115,7 +116,8 @@ jreleaser {
             }
             mavenCentral {
                 create("sonatype") {
-                    //active.set(Active.ALWAYS)
+                    version = System.getenv("NEW_VERSION")
+                    active.set(Active.ALWAYS)
                     url.set("https://central.sonatype.com/api/v1/publisher")
                     stagingRepository("build/staging-deploy")
                     username = System.getenv("JRELEASER_MAVENCENTRAL_USERNAME")
