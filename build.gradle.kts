@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jreleaser.model.Active
 
 group = "io.github.mikaojk"
-version = "1.0.0"
+version = System.getenv("NEW_VERSION") ?: "1.0.0"
 
 val junitJupiterVersion = "5.11.0"
 val kotlinVersion = "2.0.20"
