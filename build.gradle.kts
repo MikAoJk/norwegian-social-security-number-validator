@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "io.github.mikaojk"
@@ -12,6 +13,7 @@ plugins {
     kotlin("jvm") version "2.0.20"
     id("com.github.ben-manes.versions") version "0.51.0"
     id("com.diffplug.spotless") version "6.25.0"
+    id("com.vanniktech.maven.publish") version "0.29.0"
     `maven-publish`
     java
     signing
@@ -42,6 +44,45 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
 
+
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
+    signAllPublications()
+
+    coordinates(group.toString(), "norwegian-social-security-number-validator", version.toString())
+
+    pom {
+        name.set("norwegian-social-security-number-validator")
+        description.set("Library for validating a norwegian social security number (FNR or DNR)")
+        url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
+        inceptionYear.set("2024")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+                distribution.set("https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("MikAoJk")
+                name.set("Joakim Taule Kartveit")
+                email.set("joakimkartveit@gmail.com")
+                url.set("https://github.com/MikAoJk/")
+            }
+        }
+
+        scm {
+            connection.set("scm:git:git://github.com/MikAoJk/norwegian-social-security-number-validator.git")
+            developerConnection.set("scm:git:https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
+            url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
+        }
+        version = System.getenv("NEW_VERSION")
+    }
+
+}
 
 
 publishing {
