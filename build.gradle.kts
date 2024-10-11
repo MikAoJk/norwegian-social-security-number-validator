@@ -4,7 +4,7 @@ group = "io.github.mikaojk"
 version = System.getenv("NEW_VERSION") ?: "1.0.0"
 
 val junitJupiterVersion = "5.11.2"
-val kotlinVersion = "2.0.20"
+val kotlinVersion = "2.0.21"
 val ktfmtVersion = "0.44"
 val javaVersion = JavaVersion.VERSION_21
 
