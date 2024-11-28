@@ -7,23 +7,14 @@ version = System.getenv("NEW_VERSION") ?: "1.0.0"
 val junitJupiterVersion = "5.11.3"
 val kotlinVersion = "2.1.0"
 val ktfmtVersion = "0.44"
-val javaVersion = JavaVersion.VERSION_21
 
 plugins {
     kotlin("jvm") version "2.1.0"
     id("com.github.ben-manes.versions") version "0.51.0"
     id("com.diffplug.spotless") version "6.25.0"
-    java
     id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
-java {
-    sourceCompatibility = JavaVersion.toVersion(javaVersion)
-    targetCompatibility = JavaVersion.toVersion(javaVersion)
-
-    withJavadocJar()
-    withSourcesJar()
-}
 
 kotlin {
     compilerOptions {
@@ -91,7 +82,6 @@ tasks {
             dependsOn("spotlessApply")
         }
     }
-
 
     test {
         useJUnitPlatform()
