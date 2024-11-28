@@ -47,7 +47,6 @@ dependencies {
 
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
     signAllPublications()
 
     coordinates(group.toString(), "norwegian-social-security-number-validator", version.toString())
