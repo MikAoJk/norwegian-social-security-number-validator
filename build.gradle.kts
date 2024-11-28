@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "io.github.mikaojk"
@@ -15,6 +16,7 @@ plugins {
     `maven-publish`
     java
     signing
+    id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
 java {
@@ -88,6 +90,45 @@ publishing {
             from(components["java"])
         }
     }
+}
+
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
+    signAllPublications()
+
+    coordinates(group.toString(), "norwegian-social-security-number-validator", version.toString())
+
+    pom {
+        name.set("norwegian-social-security-number-validator")
+        description.set("Library for validating a norwegian social security number (FNR or DNR)")
+        url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
+        inceptionYear.set("2024")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+                distribution.set("https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("MikAoJk")
+                name.set("Joakim Taule Kartveit")
+                email.set("joakimkartveit@gmail.com")
+                url.set("https://github.com/MikAoJk/")
+            }
+        }
+
+        scm {
+            connection.set("scm:git:git://github.com/MikAoJk/norwegian-social-security-number-validator.git")
+            developerConnection.set("scm:git:https://github.com/MikAoJk/norwegian-social-security-number-validator.git")
+            url.set("https://github.com/MikAoJk/norwegian-social-security-number-validator")
+        }
+        version = System.getenv("NEW_VERSION")
+    }
+
 }
 
 signing {
