@@ -4,6 +4,8 @@
 
 [![Build and publish artifact](https://github.com/MikAoJk/norwegian-social-security-number-validator/actions/workflows/build-release.yml/badge.svg)](https://github.com/MikAoJk/norwegian-social-security-number-validator/actions/workflows/build-release.yml)
 
+![GitHub Release](https://img.shields.io/github/v/release/MikAoJk/norwegian-social-security-number-validator)
+
 
 # norwegian-social-security-number-validator
 a simple validator for validation a norwegian social security numbers (FNR, DNR)
