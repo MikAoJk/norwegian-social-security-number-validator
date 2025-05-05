@@ -70,7 +70,7 @@ Find the newest version of gradle here: https://gradle.org/releases/ Then run th
 
 #### Publish of artifact
 Artifact publish is done by GitHub Actions,
-and publish to Maven Central
+and published to Maven Central
 
 ## Contact
 
