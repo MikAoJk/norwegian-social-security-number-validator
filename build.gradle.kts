@@ -12,7 +12,7 @@ plugins {
     kotlin("jvm") version "2.1.21"
     id("com.github.ben-manes.versions") version "0.52.0"
     id("com.diffplug.spotless") version "7.0.4"
-    id("com.vanniktech.maven.publish") version "0.32.0"
+    id("com.vanniktech.maven.publish") version "0.33.0"
 }
 
 
