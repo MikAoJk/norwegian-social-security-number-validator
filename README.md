@@ -13,14 +13,6 @@ a simple validator for validation a norwegian social security numbers (FNR, DNR)
 See [Fødselsnummer](https://no.wikipedia.org/wiki/F%C3%B8dselsnummer#Oppbygning)
 for more info on how validation of a norwegian social security number is done
 
-## 2032 Changes
-This library supports both the old (pre-2032) and new (2032+) Norwegian fødselsnummer and D-nummer validation rules as specified by [Skatteetaten](https://skatteetaten.github.io/folkeregisteret-api-dokumentasjon/nytt-fodselsnummer-fra-2032/). 
-
-Key features:
-- **Dual validation**: Numbers are validated against both old and new algorithms
-- **Backward compatible**: All existing valid numbers remain valid
-- **Synthetic number support**: Handles synthetic test numbers with +80 in the month position
-- **New checksum rules**: Supports the new 2032 checksum validation where K1 remainder can be 0,1,2,3 and K2 remainder must be 0
 
 ## Technologies used
 * Kotlin
