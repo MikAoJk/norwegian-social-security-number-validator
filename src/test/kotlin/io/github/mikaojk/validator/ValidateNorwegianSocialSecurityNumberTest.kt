@@ -195,12 +195,12 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
     @Test
     internal fun shouldValidateTenorTestNumbers() {
         // Tenor test numbers use month + 80 (range 81-92)
-        // Example: A person born in January would have month 81 in a Tenor test number
+        // This test validates that month range and extraction works correctly
         val tenorJanuaryNumber = "01810012345" // January (01) + 80 = 81
         assertEquals(true, validateMonthRange("81"))
         assertEquals(1, extractBornMonth(tenorJanuaryNumber))
         
-        // Test a complete valid Tenor test number
+        // Test a May example
         val validTenorNumber = "01850012348" // May (05) + 80 = 85
         assertEquals(true, validateMonthRange("85"))
         assertEquals(5, extractBornMonth(validTenorNumber))
@@ -214,6 +214,7 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
     @Test
     internal fun shouldExtractCorrectMonthFromTenorTestNumbers() {
         // Verify month extraction for all Tenor months (81-92)
+        // Tenor = Test-Norge synthetic numbers with month + 80 offset
         assertEquals(1, extractBornMonth("01810012345"))  // January
         assertEquals(2, extractBornMonth("01820012345"))  // February
         assertEquals(3, extractBornMonth("01830012345"))  // March
@@ -229,13 +230,10 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
     }
 
     @Test
-    internal fun shouldValidateTenorTestNumbersWithCorrectChecksum() {
-        // Test Tenor numbers with valid checksum that would be used in Test-Norge
-        // These numbers have month + 80 and must pass mod11 validation
-        // Using the same generator pattern as existing tests to ensure valid checksum
-        
-        // Test with regular FNR that has synthetic month (81 = January + 80)
-        // This demonstrates the month extraction works correctly for Tenor numbers
+    internal fun shouldValidateAndExtractFromTenorStyleNumber() {
+        // Test that Tenor-style numbers (month + 80) are properly handled
+        // Note: The numbers below are for testing month extraction logic
+        // In production, Tenor numbers from Test-Norge would have valid checksums
         val tenorStyleNumber = "01810012345"
         assertEquals(1, extractBornMonth(tenorStyleNumber)) // Month 81 = January
     }
