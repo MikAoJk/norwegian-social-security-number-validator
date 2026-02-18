@@ -8,6 +8,14 @@ val lookup2: IntArray = intArrayOf(5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 fun validateSocialSecurityNumberMod11(socialSecurityNumber: String): Boolean {
     if (socialSecurityNumber.length != 11) return false
 
+    // Try both old (1964) and new (2032) validation algorithms
+    return validateMod11Old(socialSecurityNumber) || validateMod112032(socialSecurityNumber)
+}
+
+/**
+ * Validates using the old (pre-2032) algorithm where checksums must match exactly.
+ */
+private fun validateMod11Old(socialSecurityNumber: String): Boolean {
     var checksum1 = 0
     var checksum2 = 0
 
@@ -26,6 +34,40 @@ fun validateSocialSecurityNumberMod11(socialSecurityNumber: String): Boolean {
     return checksum1Final != 10 &&
         socialSecurityNumber[9] - '0' == checksum1Final &&
         socialSecurityNumber[10] - '0' == checksum2Final
+}
+
+/**
+ * Validates using the new (2032+) algorithm where remainder checks are used.
+ * For K1: (weighted_sum + K1) % 11 must be in [0, 1, 2, 3]
+ * For K2: (weighted_sum + K2) % 11 must equal 0
+ */
+private fun validateMod112032(socialSecurityNumber: String): Boolean {
+    val digits = socialSecurityNumber.map { it - '0' }.toIntArray()
+    val givenK1 = digits[9]
+    val givenK2 = digits[10]
+
+    // Calculate weighted sum for K1 (first 9 digits)
+    var weightedK1 = 0
+    for (i in 0..8) {
+        weightedK1 += digits[i] * lookup1[i]
+    }
+
+    // Check if (weighted_sum + K1) % 11 is in valid remainder set [0, 1, 2, 3]
+    val remainderK1 = (weightedK1 + givenK1) % 11
+    val validRemaindersK1 = setOf(0, 1, 2, 3)
+    if (remainderK1 !in validRemaindersK1) {
+        return false
+    }
+
+    // Calculate weighted sum for K2 (first 10 digits)
+    var weightedK2 = 0
+    for (i in 0..9) {
+        weightedK2 += digits[i] * lookup2[i]
+    }
+
+    // Check if (weighted_sum + K2) % 11 equals 0
+    val remainderK2 = (weightedK2 + givenK2) % 11
+    return remainderK2 == 0
 }
 
 private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String): Boolean {
@@ -79,8 +121,11 @@ fun extractBornDay(socialSecurityNumber: String): Int {
     return if (day < 40) day else day - 40
 }
 
-fun extractBornMonth(socialSecurityNumber: String): Int =
-    socialSecurityNumber.substring(2..3).toInt()
+fun extractBornMonth(socialSecurityNumber: String): Int {
+    val month = socialSecurityNumber.substring(2..3).toInt()
+    // Synthetic numbers have +80 in the month position (80-92 becomes 0-12)
+    return if (month >= 80) month - 80 else month
+}
 
 fun extractIndividualDigits(socialSecurityNumber: String): Int =
     socialSecurityNumber.substring(6, 9).toInt()
