@@ -60,8 +60,17 @@ private fun validateMod112032(socialSecurityNumber: String): Boolean {
 
 private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String): Boolean {
     val socialSecurityNumberBornDay = socialSecurityNumber.substring(0, 2)
-    return validateSocialSecurityNumberRange(socialSecurityNumberBornDay) ||
+    val socialSecurityNumberMonth = socialSecurityNumber.substring(2, 4)
+    val isDayValid = validateSocialSecurityNumberRange(socialSecurityNumberBornDay) ||
         validateSocialSecurityDNumberRange(socialSecurityNumberBornDay)
+    val isMonthValid = validateMonthRange(socialSecurityNumberMonth)
+    return isDayValid && isMonthValid
+}
+
+fun validateMonthRange(monthString: String): Boolean {
+    return monthString.toIntOrNull()?.let { month ->
+        month in 1..12 || month in 66..77 || month in 81..92
+    } ?: false
 }
 
 fun validateSocialSecurityAndDNumber(personNumber: String?): Boolean =
@@ -111,7 +120,11 @@ fun extractBornDay(socialSecurityNumber: String): Int {
 
 fun extractBornMonth(socialSecurityNumber: String): Int {
     val month = socialSecurityNumber.substring(2..3).toInt()
-    return if (month >= 80) month - 80 else month
+    return when {
+        month in 80..92 -> month - 80
+        month in 65..79 -> month - 65
+        else -> month
+    }
 }
 
 fun extractIndividualDigits(socialSecurityNumber: String): Int =
