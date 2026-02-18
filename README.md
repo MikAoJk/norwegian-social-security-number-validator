@@ -16,7 +16,7 @@ for more info on how validation of a norwegian social security number is done
 Supports the following synthetic numbers:
 - Norsk Helsenett(nhn)
 - Tenor (skatteetaten)
-- Nav
+- Dolly (Nav)
 
 ## Technologies used
 * Kotlin
