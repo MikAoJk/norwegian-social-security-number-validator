@@ -13,6 +13,10 @@ a simple validator for validation a norwegian social security numbers (FNR, DNR)
 See [Fødselsnummer](https://no.wikipedia.org/wiki/F%C3%B8dselsnummer#Oppbygning)
 for more info on how validation of a norwegian social security number is done
 
+Supports the following synthetic numbers:
+- Norsk Helsenett(nhn)
+- Tenor (skatteetaten)
+- Nav
 
 ## Technologies used
 * Kotlin
