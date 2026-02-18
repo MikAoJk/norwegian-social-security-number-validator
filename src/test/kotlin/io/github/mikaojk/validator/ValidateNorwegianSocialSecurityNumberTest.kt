@@ -91,10 +91,6 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
 
     @Test
     internal fun shouldValidate2032StyleNumbersWithNewAlgorithm() {
-        // Test 2032-style numbers that pass the new validation but not the old
-        // These numbers have valid K1 remainders (0,1,2,3) and K2 remainder (0)
-        
-        // Valid 2032-style fødselsnummer from reference implementation
         val valid2032Number = "20036914700"
         assertEquals(true, validateSocialSecurityNumberMod11(valid2032Number))
         assertEquals(true, validateSocialSecurityAndDNumber(valid2032Number))
@@ -102,7 +98,6 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
 
     @Test
     internal fun shouldStillValidateOldStyleNumbers() {
-        // Ensure backward compatibility - old numbers should still work
         val oldStyleNumber = "07049111198"
         assertEquals(true, validateSocialSecurityNumberMod11(oldStyleNumber))
         assertEquals(true, validateSocialSecurityAndDNumber(oldStyleNumber))
@@ -110,7 +105,6 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
 
     @Test
     internal fun shouldValidate2032OnlyNumbers() {
-        // Test a number that is valid ONLY under 2032 rules, not old rules
         val new2032OnlyNumber = "01010000048"
         assertEquals(true, validateSocialSecurityNumberMod11(new2032OnlyNumber))
         assertEquals(true, validateSocialSecurityAndDNumber(new2032OnlyNumber))
@@ -118,45 +112,36 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
 
     @Test
     internal fun shouldExtractMonthFromSyntheticNumber() {
-        // Synthetic numbers have +80 in month position
-        // Month 01 becomes 81 in synthetic number
-        val syntheticNumber = "01810012345" // January (01) + 80 = 81
+        val syntheticNumber = "01810012345"
         assertEquals(1, extractBornMonth(syntheticNumber))
         
-        // Month 12 becomes 92 in synthetic number
-        val syntheticDec = "01920012345" // December (12) + 80 = 92
+        val syntheticDec = "01920012345"
         assertEquals(12, extractBornMonth(syntheticDec))
     }
 
     @Test
     internal fun shouldExtractMonthFromRegularNumber() {
-        // Regular numbers should still work
-        val regularNumber = "01010012345" // January (01)
+        val regularNumber = "01010012345" 
         assertEquals(1, extractBornMonth(regularNumber))
         
-        val regularDec = "01120012345" // December (12)
+        val regularDec = "01120012345"
         assertEquals(12, extractBornMonth(regularDec))
     }
 
     @Test
     internal fun shouldExtractMonthFromHelsenettSyntheticNumber() {
-        // Helsenett synthetic numbers have +65 in month position
-        // Month 01 becomes 66 in synthetic number
-        val syntheticNumber = "01660012345" // January (01) + 65 = 66
+        val syntheticNumber = "01660012345"
         assertEquals(1, extractBornMonth(syntheticNumber))
         
-        // Month 12 becomes 77 in synthetic number
-        val syntheticDec = "01770012345" // December (12) + 65 = 77
+        val syntheticDec = "01770012345"
         assertEquals(12, extractBornMonth(syntheticDec))
         
-        // Month 06 becomes 71 in synthetic number
-        val syntheticJune = "01710012345" // June (06) + 65 = 71
+        val syntheticJune = "01710012345"
         assertEquals(6, extractBornMonth(syntheticJune))
     }
 
     @Test
     internal fun shouldValidateMonthRangeForRegularNumbers() {
-        // Regular months (01-12)
         assertEquals(true, validateMonthRange("01"))
         assertEquals(true, validateMonthRange("06"))
         assertEquals(true, validateMonthRange("12"))
@@ -166,27 +151,24 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
 
     @Test
     internal fun shouldValidateMonthRangeForHelsenettSyntheticNumbers() {
-        // Helsenett synthetic numbers: month + 65 (66-77)
-        assertEquals(true, validateMonthRange("66")) // January + 65
-        assertEquals(true, validateMonthRange("71")) // June + 65
-        assertEquals(true, validateMonthRange("77")) // December + 65
-        assertEquals(false, validateMonthRange("65")) // Invalid (65 would be month 0)
-        assertEquals(false, validateMonthRange("78")) // Invalid (would be month 13)
+        assertEquals(true, validateMonthRange("66"))
+        assertEquals(true, validateMonthRange("71"))
+        assertEquals(true, validateMonthRange("77"))
+        assertEquals(false, validateMonthRange("65"))
+        assertEquals(false, validateMonthRange("78"))
     }
 
     @Test
     internal fun shouldValidateMonthRangeForOtherSyntheticNumbers() {
-        // Other synthetic numbers: month + 80 (81-92)
-        assertEquals(true, validateMonthRange("81")) // January + 80
-        assertEquals(true, validateMonthRange("86")) // June + 80
-        assertEquals(true, validateMonthRange("92")) // December + 80
-        assertEquals(false, validateMonthRange("80")) // Invalid (80 would be month 0)
-        assertEquals(false, validateMonthRange("93")) // Invalid (would be month 13)
+        assertEquals(true, validateMonthRange("81"))
+        assertEquals(true, validateMonthRange("86"))
+        assertEquals(true, validateMonthRange("92"))
+        assertEquals(false, validateMonthRange("80"))
+        assertEquals(false, validateMonthRange("93"))
     }
 
     @Test
     internal fun shouldValidateMonthRangeForInvalidInput() {
-        // Test error handling for non-numeric input
         assertEquals(false, validateMonthRange("XX"))
         assertEquals(false, validateMonthRange(""))
         assertEquals(false, validateMonthRange("1A"))
