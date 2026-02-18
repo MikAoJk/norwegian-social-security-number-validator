@@ -68,8 +68,9 @@ private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String): B
 }
 
 fun validateMonthRange(monthString: String): Boolean {
-    val month = monthString.toInt()
-    return month in 1..12 || month in 66..77 || month in 81..92
+    return monthString.toIntOrNull()?.let { month ->
+        month in 1..12 || month in 66..77 || month in 81..92
+    } ?: false
 }
 
 fun validateSocialSecurityAndDNumber(personNumber: String?): Boolean =
@@ -120,8 +121,8 @@ fun extractBornDay(socialSecurityNumber: String): Int {
 fun extractBornMonth(socialSecurityNumber: String): Int {
     val month = socialSecurityNumber.substring(2..3).toInt()
     return when {
-        month >= 80 -> month - 80
-        month >= 65 -> month - 65
+        month in 80..92 -> month - 80
+        month in 65..79 -> month - 65
         else -> month
     }
 }

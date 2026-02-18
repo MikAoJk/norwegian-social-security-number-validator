@@ -183,6 +183,14 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
         assertEquals(false, validateMonthRange("80")) // Invalid (80 would be month 0)
         assertEquals(false, validateMonthRange("93")) // Invalid (would be month 13)
     }
+
+    @Test
+    internal fun shouldValidateMonthRangeForInvalidInput() {
+        // Test error handling for non-numeric input
+        assertEquals(false, validateMonthRange("XX"))
+        assertEquals(false, validateMonthRange(""))
+        assertEquals(false, validateMonthRange("1A"))
+    }
 }
 
 private fun generateSocialSecurityNumber(bornDate: LocalDate, useDNumber: Boolean = false): String {
