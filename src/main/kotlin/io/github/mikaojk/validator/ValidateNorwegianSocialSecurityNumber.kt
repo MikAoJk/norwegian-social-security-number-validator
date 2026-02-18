@@ -123,7 +123,7 @@ fun extractBornDay(socialSecurityNumber: String): Int {
 
 fun extractBornMonth(socialSecurityNumber: String): Int {
     val month = socialSecurityNumber.substring(2..3).toInt()
-    // Synthetic numbers have +8 in the month position (80-92 becomes 0-12)
+    // Synthetic numbers have +80 in the month position (80-92 becomes 0-12)
     return if (month >= 80) month - 80 else month
 }
 
