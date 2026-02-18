@@ -137,6 +137,52 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
         val regularDec = "01120012345" // December (12)
         assertEquals(12, extractBornMonth(regularDec))
     }
+
+    @Test
+    internal fun shouldExtractMonthFromHelsenettSyntheticNumber() {
+        // Helsenett synthetic numbers have +65 in month position
+        // Month 01 becomes 66 in synthetic number
+        val syntheticNumber = "01660012345" // January (01) + 65 = 66
+        assertEquals(1, extractBornMonth(syntheticNumber))
+        
+        // Month 12 becomes 77 in synthetic number
+        val syntheticDec = "01770012345" // December (12) + 65 = 77
+        assertEquals(12, extractBornMonth(syntheticDec))
+        
+        // Month 06 becomes 71 in synthetic number
+        val syntheticJune = "01710012345" // June (06) + 65 = 71
+        assertEquals(6, extractBornMonth(syntheticJune))
+    }
+
+    @Test
+    internal fun shouldValidateMonthRangeForRegularNumbers() {
+        // Regular months (01-12)
+        assertEquals(true, validateMonthRange("01"))
+        assertEquals(true, validateMonthRange("06"))
+        assertEquals(true, validateMonthRange("12"))
+        assertEquals(false, validateMonthRange("00"))
+        assertEquals(false, validateMonthRange("13"))
+    }
+
+    @Test
+    internal fun shouldValidateMonthRangeForHelsenettSyntheticNumbers() {
+        // Helsenett synthetic numbers: month + 65 (66-77)
+        assertEquals(true, validateMonthRange("66")) // January + 65
+        assertEquals(true, validateMonthRange("71")) // June + 65
+        assertEquals(true, validateMonthRange("77")) // December + 65
+        assertEquals(false, validateMonthRange("65")) // Invalid (65 would be month 0)
+        assertEquals(false, validateMonthRange("78")) // Invalid (would be month 13)
+    }
+
+    @Test
+    internal fun shouldValidateMonthRangeForOtherSyntheticNumbers() {
+        // Other synthetic numbers: month + 80 (81-92)
+        assertEquals(true, validateMonthRange("81")) // January + 80
+        assertEquals(true, validateMonthRange("86")) // June + 80
+        assertEquals(true, validateMonthRange("92")) // December + 80
+        assertEquals(false, validateMonthRange("80")) // Invalid (80 would be month 0)
+        assertEquals(false, validateMonthRange("93")) // Invalid (would be month 13)
+    }
 }
 
 private fun generateSocialSecurityNumber(bornDate: LocalDate, useDNumber: Boolean = false): String {
