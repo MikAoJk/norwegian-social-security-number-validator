@@ -69,6 +69,9 @@ private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String): B
 
 fun validateMonthRange(monthString: String): Boolean {
     return monthString.toIntOrNull()?.let { month ->
+        // Regular months: 1-12
+        // Helsenett synthetic numbers: month + 65 (66-77)
+        // Tenor test numbers (Test-Norge): month + 80 (81-92)
         month in 1..12 || month in 66..77 || month in 81..92
     } ?: false
 }
@@ -121,9 +124,9 @@ fun extractBornDay(socialSecurityNumber: String): Int {
 fun extractBornMonth(socialSecurityNumber: String): Int {
     val month = socialSecurityNumber.substring(2..3).toInt()
     return when {
-        month in 80..92 -> month - 80
-        month in 65..79 -> month - 65
-        else -> month
+        month in 80..92 -> month - 80  // Tenor test numbers: month + 80
+        month in 65..79 -> month - 65  // Helsenett synthetic numbers: month + 65
+        else -> month  // Regular numbers: actual month
     }
 }
 

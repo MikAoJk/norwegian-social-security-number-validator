@@ -8,10 +8,19 @@
 
 
 # norwegian-social-security-number-validator
-a simple validator for validation a norwegian social security numbers (FNR, DNR)
+a simple validator for validation a norwegian social security numbers (FNR, DNR) including support for synthetic test numbers
 
 See [Fødselsnummer](https://no.wikipedia.org/wiki/F%C3%B8dselsnummer#Oppbygning)
 for more info on how validation of a norwegian social security number is done
+
+## Supported Number Types
+This library supports validation of:
+* **FNR (Fødselsnummer)** - Regular Norwegian national identity numbers
+* **DNR (D-nummer)** - Identity numbers for foreign persons (day + 40)
+* **Helsenett synthetic numbers** - Test numbers with month + 65 offset
+* **Tenor test numbers (Test-Norge)** - Synthetic test numbers from Skatteetaten with month + 80 offset
+
+For more information about Tenor test numbers, see [Skatteetaten's Test-Norge documentation](https://skatteetaten.github.io/folkeregisteret-api-dokumentasjon/test-for-konsumenter/)
 
 
 ## Technologies used
