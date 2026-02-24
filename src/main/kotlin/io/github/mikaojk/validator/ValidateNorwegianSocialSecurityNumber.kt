@@ -5,10 +5,11 @@ import java.time.LocalDate
 val lookup1: IntArray = intArrayOf(3, 7, 6, 1, 8, 9, 4, 5, 2, 0)
 val lookup2: IntArray = intArrayOf(5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 
-fun validateSocialSecurityNumberMod11(socialSecurityNumber: String): Boolean {
+fun validateSocialSecurityNumber(socialSecurityNumber: String, allowSynthetic: Boolean = false): Boolean {
     if (socialSecurityNumber.length != 11) return false
 
-    return validateMod11Old(socialSecurityNumber) || validateMod112032(socialSecurityNumber)
+    return (validateMod11Old(socialSecurityNumber) || validateMod112032(socialSecurityNumber)) &&
+        validatePersonAndPersonDNumberRange(socialSecurityNumber, allowSynthetic)
 }
 
 private fun validateMod11Old(socialSecurityNumber: String): Boolean {
@@ -74,9 +75,7 @@ fun validateMonthRange(monthString: String, allowSynthetic: Boolean = false): Bo
 }
 
 fun validateSocialSecurityAndDNumber(personNumber: String?, allowSynthetic: Boolean = false): Boolean =
-    personNumber != null &&
-        validateSocialSecurityNumberMod11(personNumber) &&
-        validatePersonAndPersonDNumberRange(personNumber, allowSynthetic)
+    personNumber != null && validateSocialSecurityNumber(personNumber, allowSynthetic)
 
 fun validateSocialSecurityAndDNumber11Digits(personNumber: String): Boolean =
     personNumber.length == 11
