@@ -151,20 +151,22 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
 
     @Test
     internal fun shouldValidateMonthRangeForHelsenettSyntheticNumbers() {
-        assertEquals(true, validateMonthRange("66"))
-        assertEquals(true, validateMonthRange("71"))
-        assertEquals(true, validateMonthRange("77"))
-        assertEquals(false, validateMonthRange("65"))
-        assertEquals(false, validateMonthRange("78"))
+        assertEquals(true, validateMonthRange("66", allowSynthetic = true))
+        assertEquals(true, validateMonthRange("71", allowSynthetic = true))
+        assertEquals(true, validateMonthRange("77", allowSynthetic = true))
+        assertEquals(false, validateMonthRange("66", allowSynthetic = false))
+        assertEquals(false, validateMonthRange("65", allowSynthetic = true))
+        assertEquals(false, validateMonthRange("78", allowSynthetic = true))
     }
 
     @Test
     internal fun shouldValidateMonthRangeForOtherSyntheticNumbers() {
-        assertEquals(true, validateMonthRange("81"))
-        assertEquals(true, validateMonthRange("86"))
-        assertEquals(true, validateMonthRange("92"))
-        assertEquals(false, validateMonthRange("80"))
-        assertEquals(false, validateMonthRange("93"))
+        assertEquals(true, validateMonthRange("81", allowSynthetic = true))
+        assertEquals(true, validateMonthRange("86", allowSynthetic = true))
+        assertEquals(true, validateMonthRange("92", allowSynthetic = true))
+        assertEquals(false, validateMonthRange("81", allowSynthetic = false))
+        assertEquals(false, validateMonthRange("80", allowSynthetic = true))
+        assertEquals(false, validateMonthRange("93", allowSynthetic = true))
     }
 
     @Test
@@ -172,6 +174,33 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
         assertEquals(false, validateMonthRange("XX"))
         assertEquals(false, validateMonthRange(""))
         assertEquals(false, validateMonthRange("1A"))
+    }
+
+    @Test
+    internal fun shouldRejectSyntheticFnrByDefault() {
+        val syntheticFnr = "01810011129"
+        assertEquals(false, validateSocialSecurityAndDNumber(syntheticFnr))
+        assertEquals(false, validateSocialSecurityAndDNumber(syntheticFnr, allowSynthetic = false))
+    }
+
+    @Test
+    internal fun shouldAcceptSyntheticFnrWhenAllowSyntheticIsTrue() {
+        val syntheticFnr = "01810011129"
+        assertEquals(true, validateSocialSecurityAndDNumber(syntheticFnr, allowSynthetic = true))
+    }
+
+    @Test
+    internal fun shouldAcceptHelsenettSyntheticFnrWhenAllowSyntheticIsTrue() {
+        val helsenettSyntheticFnr = "01660011168"
+        assertEquals(true, validateSocialSecurityAndDNumber(helsenettSyntheticFnr, allowSynthetic = true))
+        assertEquals(false, validateSocialSecurityAndDNumber(helsenettSyntheticFnr, allowSynthetic = false))
+    }
+
+    @Test
+    internal fun shouldStillAcceptRegularFnrWhenAllowSyntheticIsTrue() {
+        val regularFnr = "07049111198"
+        assertEquals(true, validateSocialSecurityAndDNumber(regularFnr, allowSynthetic = true))
+        assertEquals(true, validateSocialSecurityAndDNumber(regularFnr, allowSynthetic = false))
     }
 }
 
