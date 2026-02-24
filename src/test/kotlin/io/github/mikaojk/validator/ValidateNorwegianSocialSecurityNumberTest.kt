@@ -92,21 +92,21 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
     @Test
     internal fun shouldValidate2032StyleNumbersWithNewAlgorithm() {
         val valid2032Number = "20036914700"
-        assertEquals(true, validateSocialSecurityNumberMod11(valid2032Number))
+        assertEquals(true, validateSocialSecurityNumber(valid2032Number))
         assertEquals(true, validateSocialSecurityAndDNumber(valid2032Number))
     }
 
     @Test
     internal fun shouldStillValidateOldStyleNumbers() {
         val oldStyleNumber = "07049111198"
-        assertEquals(true, validateSocialSecurityNumberMod11(oldStyleNumber))
+        assertEquals(true, validateSocialSecurityNumber(oldStyleNumber))
         assertEquals(true, validateSocialSecurityAndDNumber(oldStyleNumber))
     }
 
     @Test
     internal fun shouldValidate2032OnlyNumbers() {
         val new2032OnlyNumber = "01010000048"
-        assertEquals(true, validateSocialSecurityNumberMod11(new2032OnlyNumber))
+        assertEquals(true, validateSocialSecurityNumber(new2032OnlyNumber))
         assertEquals(true, validateSocialSecurityAndDNumber(new2032OnlyNumber))
     }
 
@@ -174,6 +174,19 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
         assertEquals(false, validateMonthRange("XX"))
         assertEquals(false, validateMonthRange(""))
         assertEquals(false, validateMonthRange("1A"))
+    }
+
+    @Test
+    internal fun shouldRejectSyntheticFnrByDefaultInValidateSocialSecurityNumber() {
+        val syntheticFnr = "01810011129"
+        assertEquals(false, validateSocialSecurityNumber(syntheticFnr))
+        assertEquals(false, validateSocialSecurityNumber(syntheticFnr, allowSynthetic = false))
+    }
+
+    @Test
+    internal fun shouldAcceptSyntheticFnrWhenAllowSyntheticIsTrueInValidateSocialSecurityNumber() {
+        val syntheticFnr = "01810011129"
+        assertEquals(true, validateSocialSecurityNumber(syntheticFnr, allowSynthetic = true))
     }
 
     @Test
