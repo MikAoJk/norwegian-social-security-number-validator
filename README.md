@@ -44,7 +44,12 @@ Maven
 
 ### Use example
 ```
-val valid = validateSocialSecurityAndDNumber11Digits("01013999900")
+val valid = validateSocialSecurityNumber("01013999900")
+
+if (valid) {
+println("valid fnr")}
+else {
+println("illegal fnr")}
 ```
 
 ## Local development
