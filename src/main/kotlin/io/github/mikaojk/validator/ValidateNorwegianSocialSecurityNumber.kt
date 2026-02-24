@@ -58,25 +58,25 @@ private fun validateMod112032(socialSecurityNumber: String): Boolean {
     return remainderK2 == 0
 }
 
-private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String): Boolean {
+private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String, allowSynthetic: Boolean = false): Boolean {
     val socialSecurityNumberBornDay = socialSecurityNumber.substring(0, 2)
     val socialSecurityNumberMonth = socialSecurityNumber.substring(2, 4)
     val isDayValid = validateSocialSecurityNumberRange(socialSecurityNumberBornDay) ||
         validateSocialSecurityDNumberRange(socialSecurityNumberBornDay)
-    val isMonthValid = validateMonthRange(socialSecurityNumberMonth)
+    val isMonthValid = validateMonthRange(socialSecurityNumberMonth, allowSynthetic)
     return isDayValid && isMonthValid
 }
 
-fun validateMonthRange(monthString: String): Boolean {
+fun validateMonthRange(monthString: String, allowSynthetic: Boolean = false): Boolean {
     return monthString.toIntOrNull()?.let { month ->
-        month in 1..12 || month in 66..77 || month in 81..92
+        month in 1..12 || (allowSynthetic && (month in 66..77 || month in 81..92))
     } ?: false
 }
 
-fun validateSocialSecurityAndDNumber(personNumber: String?): Boolean =
+fun validateSocialSecurityAndDNumber(personNumber: String?, allowSynthetic: Boolean = false): Boolean =
     personNumber != null &&
         validateSocialSecurityNumberMod11(personNumber) &&
-        validatePersonAndPersonDNumberRange(personNumber)
+        validatePersonAndPersonDNumberRange(personNumber, allowSynthetic)
 
 fun validateSocialSecurityAndDNumber11Digits(personNumber: String): Boolean =
     personNumber.length == 11
