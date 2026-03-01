@@ -28,7 +28,8 @@ Supports the following synthetic numbers:
 > **Note**
 > Find the newest version of the libary here: https://central.sonatype.com/artifact/io.github.mikaojk/norwegian-social-security-number-validator
 > and swap it out with the version(2.0.9) in the examples below
-Gradle(kotlin)
+
+Gradle
 ```
 implementation("io.github.mikaojk:norwegian-social-security-number-validator:2.0.9")
 ```
