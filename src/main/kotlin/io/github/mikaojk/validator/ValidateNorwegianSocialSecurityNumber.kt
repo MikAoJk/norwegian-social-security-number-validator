@@ -5,14 +5,17 @@ import java.time.LocalDate
 val lookup1: IntArray = intArrayOf(3, 7, 6, 1, 8, 9, 4, 5, 2, 0)
 val lookup2: IntArray = intArrayOf(5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 
-fun validateSocialSecurityNumber(socialSecurityNumber: String, allowSynthetic: Boolean = false): Boolean {
+fun validateSocialSecurityNumber(
+    socialSecurityNumber: String,
+    allowSynthetic: Boolean = false
+): Boolean {
     if (socialSecurityNumber.length != 11) return false
 
-    return (validateMod11Old(socialSecurityNumber) || validateMod112032(socialSecurityNumber)) &&
+    return (validateMod11Pre2032(socialSecurityNumber) || validateMod112032(socialSecurityNumber)) &&
         validatePersonAndPersonDNumberRange(socialSecurityNumber, allowSynthetic)
 }
 
-private fun validateMod11Old(socialSecurityNumber: String): Boolean {
+private fun validateMod11Pre2032(socialSecurityNumber: String): Boolean {
     var checksum1 = 0
     var checksum2 = 0
 
@@ -59,7 +62,10 @@ private fun validateMod112032(socialSecurityNumber: String): Boolean {
     return remainderK2 == 0
 }
 
-private fun validatePersonAndPersonDNumberRange(socialSecurityNumber: String, allowSynthetic: Boolean = false): Boolean {
+private fun validatePersonAndPersonDNumberRange(
+    socialSecurityNumber: String,
+    allowSynthetic: Boolean = false
+): Boolean {
     val socialSecurityNumberBornDay = socialSecurityNumber.substring(0, 2)
     val socialSecurityNumberMonth = socialSecurityNumber.substring(2, 4)
     val isDayValid = validateSocialSecurityNumberRange(socialSecurityNumberBornDay) ||
@@ -74,7 +80,10 @@ fun validateMonthRange(monthString: String, allowSynthetic: Boolean = false): Bo
     } ?: false
 }
 
-fun validateSocialSecurityAndDNumber(personNumber: String?, allowSynthetic: Boolean = false): Boolean =
+fun validateSocialSecurityAndDNumber(
+    personNumber: String?,
+    allowSynthetic: Boolean = false
+): Boolean =
     personNumber != null && validateSocialSecurityNumber(personNumber, allowSynthetic)
 
 fun validateSocialSecurityAndDNumber11Digits(personNumber: String): Boolean =
@@ -92,7 +101,7 @@ fun extractBornDate(personIdent: String): LocalDate =
     LocalDate.of(
         extractBornYear(personIdent),
         extractBornMonth(personIdent),
-        extractBornDay(personIdent)
+        extractBornDay(personIdent),
     )
 
 fun extractBornYear(socialSecurityNumber: String): Int {

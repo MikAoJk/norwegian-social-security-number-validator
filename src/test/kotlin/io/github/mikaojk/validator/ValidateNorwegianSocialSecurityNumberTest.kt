@@ -114,16 +114,16 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
     internal fun shouldExtractMonthFromSyntheticNumber() {
         val syntheticNumber = "01810012345"
         assertEquals(1, extractBornMonth(syntheticNumber))
-        
+
         val syntheticDec = "01920012345"
         assertEquals(12, extractBornMonth(syntheticDec))
     }
 
     @Test
     internal fun shouldExtractMonthFromRegularNumber() {
-        val regularNumber = "01010012345" 
+        val regularNumber = "01010012345"
         assertEquals(1, extractBornMonth(regularNumber))
-        
+
         val regularDec = "01120012345"
         assertEquals(12, extractBornMonth(regularDec))
     }
@@ -132,10 +132,10 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
     internal fun shouldExtractMonthFromHelsenettSyntheticNumber() {
         val syntheticNumber = "01660012345"
         assertEquals(1, extractBornMonth(syntheticNumber))
-        
+
         val syntheticDec = "01770012345"
         assertEquals(12, extractBornMonth(syntheticDec))
-        
+
         val syntheticJune = "01710012345"
         assertEquals(6, extractBornMonth(syntheticJune))
     }
@@ -205,8 +205,14 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
     @Test
     internal fun shouldAcceptHelsenettSyntheticFnrWhenAllowSyntheticIsTrue() {
         val helsenettSyntheticFnr = "01660011168"
-        assertEquals(true, validateSocialSecurityAndDNumber(helsenettSyntheticFnr, allowSynthetic = true))
-        assertEquals(false, validateSocialSecurityAndDNumber(helsenettSyntheticFnr, allowSynthetic = false))
+        assertEquals(
+            true,
+            validateSocialSecurityAndDNumber(helsenettSyntheticFnr, allowSynthetic = true),
+        )
+        assertEquals(
+            false,
+            validateSocialSecurityAndDNumber(helsenettSyntheticFnr, allowSynthetic = false),
+        )
     }
 
     @Test

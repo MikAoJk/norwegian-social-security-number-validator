@@ -44,13 +44,14 @@ Maven
 ```
 
 ### Use example
-```
-val valid = validateSocialSecurityNumber("01013999900")
+``` kotlin
+    val validSocialSecurityNumber = validateSocialSecurityNumber("01013999900")
 
-if (valid) {
-println("valid fnr")}
-else {
-println("illegal fnr")}
+    if (validSocialSecurityNumber) {
+        println("valid social securityNumber")
+    } else {
+        println("illegal social securityNumber")
+    }
 ```
 
 ## Local development
