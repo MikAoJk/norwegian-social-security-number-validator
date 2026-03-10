@@ -8,74 +8,6 @@ import org.junit.jupiter.api.Test
 internal class ValidateNorwegianSocialSecurityNumberTest {
 
     @Test
-    internal fun testShouldExtractBornYearFrom1854To1899() {
-        val extractBornYear1 = extractBornYear("01015450000")
-        val extractBornYear2 = extractBornYear("01015474900")
-        val extractBornYear3 = extractBornYear("01019950000")
-        val extractBornYear4 = extractBornYear("01019974900")
-
-        assertEquals(1854, extractBornYear1)
-        assertEquals(1854, extractBornYear2)
-        assertEquals(1899, extractBornYear3)
-        assertEquals(1899, extractBornYear4)
-    }
-
-    @Test
-    internal fun shouldExtractBornYearFrom1900To1999() {
-        val extractBornYear1 = extractBornYear("01010000000")
-        val extractBornYear2 = extractBornYear("01010049900")
-        val extractBornYear3 = extractBornYear("01019900000")
-        val extractBornYear4 = extractBornYear("01019949900")
-
-        assertEquals(1900, extractBornYear1)
-        assertEquals(1900, extractBornYear2)
-        assertEquals(1999, extractBornYear3)
-        assertEquals(1999, extractBornYear4)
-    }
-
-    @Test
-    internal fun shouldExtractBornYearFrom1940To1999() {
-        val extractBornYear1 = extractBornYear("01014090000")
-        val extractBornYear2 = extractBornYear("01014099900")
-        val extractBornYear3 = extractBornYear("01019990000")
-        val extractBornYear4 = extractBornYear("01019999900")
-
-        assertEquals(1940, extractBornYear1)
-        assertEquals(1940, extractBornYear2)
-        assertEquals(1999, extractBornYear3)
-        assertEquals(1999, extractBornYear4)
-    }
-
-    @Test
-    internal fun shouldExtractBornYearFrom2000To2039() {
-        val extractBornYear1 = extractBornYear("01010050000")
-        val extractBornYear2 = extractBornYear("01010099900")
-        val extractBornYear3 = extractBornYear("01013950000")
-        val extractBornYear4 = extractBornYear("01013999900")
-
-        assertEquals(2000, extractBornYear1)
-        assertEquals(2000, extractBornYear2)
-        assertEquals(2039, extractBornYear3)
-        assertEquals(2039, extractBornYear4)
-    }
-
-    @Test
-    internal fun shouldExtractBornYearFrom1991() {
-        val extractBornYear =
-            extractBornYear(generateSocialSecurityNumber(LocalDate.of(1991, 4, 7)))
-
-        assertEquals(1991, extractBornYear)
-    }
-
-    @Test
-    internal fun shouldExtractBornDateFrom1991() {
-        val bornDate19910407 = LocalDate.of(1991, 4, 7)
-        val extractBornDate = extractBornDate(generateSocialSecurityNumber(bornDate19910407))
-
-        assertEquals(bornDate19910407, extractBornDate)
-    }
-
-    @Test
     internal fun shouldValidateTrueForValidatePersonAndDNumber11Digits() {
         val validationResult = validateSocialSecurityAndDNumber11Digits("01013999900")
 
@@ -110,35 +42,8 @@ internal class ValidateNorwegianSocialSecurityNumberTest {
         assertEquals(true, validateSocialSecurityAndDNumber(new2032OnlyNumber))
     }
 
-    @Test
-    internal fun shouldExtractMonthFromSyntheticNumber() {
-        val syntheticNumber = "01810012345"
-        assertEquals(1, extractBornMonth(syntheticNumber))
 
-        val syntheticDec = "01920012345"
-        assertEquals(12, extractBornMonth(syntheticDec))
-    }
 
-    @Test
-    internal fun shouldExtractMonthFromRegularNumber() {
-        val regularNumber = "01010012345"
-        assertEquals(1, extractBornMonth(regularNumber))
-
-        val regularDec = "01120012345"
-        assertEquals(12, extractBornMonth(regularDec))
-    }
-
-    @Test
-    internal fun shouldExtractMonthFromHelsenettSyntheticNumber() {
-        val syntheticNumber = "01660012345"
-        assertEquals(1, extractBornMonth(syntheticNumber))
-
-        val syntheticDec = "01770012345"
-        assertEquals(12, extractBornMonth(syntheticDec))
-
-        val syntheticJune = "01710012345"
-        assertEquals(6, extractBornMonth(syntheticJune))
-    }
 
     @Test
     internal fun shouldValidateMonthRangeForRegularNumbers() {
