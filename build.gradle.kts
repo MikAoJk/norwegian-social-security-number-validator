@@ -6,7 +6,7 @@ group = "io.github.mikaojk"
 version = System.getenv("NEW_VERSION") ?: "1.0.0"
 
 val junitJupiterVersion = "6.0.3"
-val kotlinVersion = "2.3.10"
+val kotlinVersion = "2.3.20"
 val ktfmtVersion = "0.44"
 
 plugins {
