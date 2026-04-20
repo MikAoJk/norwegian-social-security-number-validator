@@ -1,5 +1,6 @@
 name-template: $NEXT_PATCH_VERSION
 tag-template: $NEXT_PATCH_VERSION
+commitish: main
 change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
 categories:
   - title: '🚀 Features'
