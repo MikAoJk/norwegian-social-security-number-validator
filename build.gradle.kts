@@ -9,7 +9,7 @@ val junitJupiterVersion = "6.1.3"
 val ktfmtVersion = "0.56"
 
 plugins {
-    kotlin("jvm") version "2.4.20"
+    kotlin("jvm") version "2.4.21"
     id("io.github.ben-manes.versions") version "0.65.0"
     id("com.diffplug.spotless") version "8.10.4"
     id("com.vanniktech.maven.publish") version "0.37.0"
